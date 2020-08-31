@@ -14,157 +14,23 @@
       </vs-col>
     </vs-row>
     <vs-row>
-      <vs-col align="center" lg="3" sm="4" xs="12">
-        <vs-card @click="openDetail(1)">
+      <vs-col align="center" lg="3" sm="4" xs="12" v-for="(item, index) in news" :key="index">
+        <vs-card @click="openDetail(index)">
           <template #title>
-            <h3>Pot with a plant</h3>
+            <h3>{{ item.title }}</h3>
           </template>
           <template #img>
-            <img src="https://images.pexels.com/photos/219302/pexels-photo-219302.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="">
+            <img :src="item.urlToImage" >
           </template>
           <template #text>
-            <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-            </p>
+            <p v-if="item.description">{{ item.description.slice(0, 200)+'...' }}</p>
+            <p v-else></p>
           </template>
           <template #interactions>
-            <vs-button danger icon>
-              <i class='bx bx-heart'></i>
-            </vs-button>
             <vs-button class="btn-chat" shadow primary>
-              <i class='bx bx-chat' ></i>
+              <i class='bx bx-time' style="margin-right: 5px"></i>
               <span class="span">
-                54
-              </span>
-            </vs-button>
-          </template>
-        </vs-card> 
-      </vs-col>
-      <vs-col align="center" lg="3" sm="4" xs="12">
-        <vs-card @click="openDetail(2)">
-          <template #title>
-            <h3>Pot with a plant</h3>
-          </template>
-          <template #img>
-            <img src="https://images.pexels.com/photos/219302/pexels-photo-219302.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="">
-          </template>
-          <template #text>
-            <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-            </p>
-          </template>
-          <template #interactions>
-            <vs-button danger icon>
-              <i class='bx bx-heart'></i>
-            </vs-button>
-            <vs-button class="btn-chat" shadow primary>
-              <i class='bx bx-chat' ></i>
-              <span class="span">
-                54
-              </span>
-            </vs-button>
-          </template>
-        </vs-card> 
-      </vs-col>
-      <vs-col align="center" lg="3" sm="4" xs="12">
-        <vs-card>
-          <template #title>
-            <h3>Pot with a plant</h3>
-          </template>
-          <template #img>
-            <img src="https://images.pexels.com/photos/219302/pexels-photo-219302.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="">
-          </template>
-          <template #text>
-            <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-            </p>
-          </template>
-          <template #interactions>
-            <vs-button danger icon>
-              <i class='bx bx-heart'></i>
-            </vs-button>
-            <vs-button class="btn-chat" shadow primary>
-              <i class='bx bx-chat' ></i>
-              <span class="span">
-                54
-              </span>
-            </vs-button>
-          </template>
-        </vs-card> 
-      </vs-col>
-      <vs-col align="center" lg="3" sm="4" xs="12">
-        <vs-card>
-          <template #title>
-            <h3>Pot with a plant</h3>
-          </template>
-          <template #img>
-            <img src="https://images.pexels.com/photos/219302/pexels-photo-219302.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="">
-          </template>
-          <template #text>
-            <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-            </p>
-          </template>
-          <template #interactions>
-            <vs-button danger icon>
-              <i class='bx bx-heart'></i>
-            </vs-button>
-            <vs-button class="btn-chat" shadow primary>
-              <i class='bx bx-chat' ></i>
-              <span class="span">
-                54
-              </span>
-            </vs-button>
-          </template>
-        </vs-card> 
-      </vs-col>
-      <vs-col align="center" lg="3" sm="4" xs="12">
-        <vs-card>
-          <template #title>
-            <h3>Pot with a plant</h3>
-          </template>
-          <template #img>
-            <img src="https://images.pexels.com/photos/219302/pexels-photo-219302.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="">
-          </template>
-          <template #text>
-            <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-            </p>
-          </template>
-          <template #interactions>
-            <vs-button danger icon>
-              <i class='bx bx-heart'></i>
-            </vs-button>
-            <vs-button class="btn-chat" shadow primary>
-              <i class='bx bx-chat' ></i>
-              <span class="span">
-                54
-              </span>
-            </vs-button>
-          </template>
-        </vs-card> 
-      </vs-col>
-      <vs-col align="center" lg="3" sm="4" xs="12">
-        <vs-card>
-          <template #title>
-            <h3>Pot with a plant</h3>
-          </template>
-          <template #img>
-            <img src="https://images.pexels.com/photos/219302/pexels-photo-219302.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="">
-          </template>
-          <template #text>
-            <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-            </p>
-          </template>
-          <template #interactions>
-            <vs-button danger icon>
-              <i class='bx bx-heart'></i>
-            </vs-button>
-            <vs-button class="btn-chat" shadow primary>
-              <i class='bx bx-chat' ></i>
-              <span class="span">
-                54
+                {{ Date.parse(item.publishedAt) | moment("YYYY-MM-DD h:mm:ss a") }}
               </span>
             </vs-button>
           </template>
@@ -175,6 +41,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 
 export default {
   name: 'Home',
@@ -183,6 +50,9 @@ export default {
       this.$router.push('/detail/'+id)
     }
   },
+  computed: {
+    ...mapState(['news']),
+  }
 }
 </script>
 <style>

@@ -2,17 +2,18 @@
   <div class="about">
     <vs-row justify="center">
       <vs-col lg="6" sm="8" xs="12">
-        <h1>{{ title }}</h1>
+        <h1>{{ news[index].title }}</h1>
       </vs-col>
     </vs-row>
     <vs-row justify="center">
       <vs-col lg="6" sm="8" xs="12">
-        <img :src="img" width="100%">
+        <img :src="news[index].urlToImage" width="100%">
       </vs-col>
     </vs-row>
     <vs-row justify="center">
       <vs-col lg="6" sm="8" xs="12">
-        <p>{{ content }}</p>
+        <p v-if="news[index].description.length > news[index].content.length">{{ news[index].description }}</p>
+        <p v-else>{{ news[index].content }}</p>
       </vs-col>
     </vs-row>
     <vs-row>
@@ -25,19 +26,16 @@
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'Detail',
   data() {
     return {
-      title: 'Este es la noticia noticiosa para noticiar personas noticieras',
-      img: 'https://images.pexels.com/photos/219302/pexels-photo-219302.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-      content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum iure cum accusamus hic enim ad porro ab accusantium unde nesciunt? Veritatis delectus repellendus ab rerum officia quas. Expedita, iusto blanditiis.'
+      index: this.$route.params.id
     }
   },
-  methods: {
-    getDetail() {
-      // obtener detalle de la noticia desde la API
-    }
+  computed: {
+    ...mapState(['news'])
   },
 }
 </script>

@@ -11,83 +11,80 @@
           <template #logo>
             News
           </template>
-          <vs-sidebar-item id="home">
-            <template #icon>
-              <i class='bx bx-home'></i>
-            </template>
-            Todo
-          </vs-sidebar-item>
-          <vs-sidebar-item id="market">
-            <template #icon>
-              <i class='bx bx-grid-alt'></i>
-            </template>
-            Politica
-          </vs-sidebar-item>
-          <vs-sidebar-item id="Music">
-            <template #icon>
-              <i class='bx bxs-music'></i>
-            </template>
-            Music
-          </vs-sidebar-item>
-          <vs-sidebar-group>
-            <template #header>
-              <vs-sidebar-item arrow>
-                <template #icon>
-                  <i class='bx bx-group'></i>
-                </template>
-                Social media
-              </vs-sidebar-item>
-            </template>
-
-            <vs-sidebar-item id="Instagram">
+          <div v-if="this.$route.name != 'Home'">
+            <vs-sidebar-item to="/">
               <template #icon>
-                <i class='bx bxl-instagram'></i>
+                <i class='bx bx-arrow-back'></i>
               </template>
-              Instagram
+              volver
             </vs-sidebar-item>
-            <vs-sidebar-item id="twitter">
-              <template #icon>
-                <i class='bx bxl-twitter' ></i>
-              </template>
-              Twitter
-            </vs-sidebar-item>
-            <vs-sidebar-item id="Facebook">
-              <template #icon>
-                <i class='bx bxl-facebook' ></i>
-              </template>
-              Facebook
-            </vs-sidebar-item>
-          </vs-sidebar-group>
-          <vs-sidebar-item id="donate">
-            <template #icon>
-              <i class='bx bxs-donate-heart' ></i>
-            </template>
-            Donate
-          </vs-sidebar-item>
-          <vs-sidebar-item id="drink">
-            <template #icon>
-              <i class='bx bx-drink'></i>
-            </template>
-            Drink
-          </vs-sidebar-item>
-          <vs-sidebar-item id="shopping">
-            <template #icon>
-              <i class='bx bxs-shopping-bags'></i>
-            </template>
-            Shopping
-          </vs-sidebar-item>
-          <vs-sidebar-item id="chat">
-            <template #icon>
-              <i class='bx bx-chat' ></i>
-            </template>
-            Chat
-          </vs-sidebar-item>
+          </div>
+          <div v-else>
+            <a class="vs-sidebar__item hasIcon" :class="active === 'general' ? 'active' : ''" @click="getNews('general')">
+              <div class="vs-sidebar__item__icon">
+                <i class='bx bx-home'></i>
+              </div>
+              <div class="vs-sidebar__item__text-tooltip">
+                Todo
+              </div>
+            </a>
+            <a class="vs-sidebar__item hasIcon" :class="active === 'business' ? 'active' : ''" @click="getNews('business')">
+              <div class="vs-sidebar__item__icon">
+                <i class='bx bx-briefcase-alt'></i>
+              </div>
+              <div class="vs-sidebar__item__text-tooltip">
+                Negocios
+              </div>
+            </a>
+            <a class="vs-sidebar__item hasIcon" :class="active === 'entertainment' ? 'active' : ''" @click="getNews('entertainment')">
+              <div class="vs-sidebar__item__icon">
+                <i class='bx bx-right-arrow'></i>
+              </div>
+              <div class="vs-sidebar__item__text-tooltip">
+                Entretenimiento
+              </div>
+            </a>
+            <a class="vs-sidebar__item hasIcon" :class="active === 'health' ? 'active' : ''" @click="getNews('health')">
+              <div class="vs-sidebar__item__icon">
+                <i class='bx bx-band-aid'></i>
+              </div>
+              <div class="vs-sidebar__item__text-tooltip">
+                Salud
+              </div>
+            </a>
+            <a class="vs-sidebar__item hasIcon" :class="active === 'science' ? 'active' : ''" @click="getNews('science')">
+              <div class="vs-sidebar__item__icon">
+                <i class='bx bx-bong'></i>
+              </div>
+              <div class="vs-sidebar__item__text-tooltip">
+                Ciencia
+              </div>
+            </a>
+            <a class="vs-sidebar__item hasIcon" :class="active === 'sports' ? 'active' : ''" @click="getNews('sports')">
+              <div class="vs-sidebar__item__icon">
+                <i class='bx bx-tennis-ball'></i>
+              </div>
+              <div class="vs-sidebar__item__text-tooltip">
+                Deporte
+              </div>
+            </a>
+            <a class="vs-sidebar__item hasIcon" :class="active === 'technology' ? 'active' : ''" @click="getNews('technology')">
+              <div class="vs-sidebar__item__icon">
+                <i class='bx bx-mouse'></i>
+              </div>
+              <div class="vs-sidebar__item__text-tooltip">
+                Tecnologia
+              </div>
+            </a>
+          </div>
+          
           <template #footer>
             <vs-row justify="space-between">
               <vs-button
                 icon
                 color="dark"
                 border
+                href="https://github.com/DeyviDeLaCruz"
               >
                 <i class='bx bxl-github'></i>
               </vs-button>
@@ -100,10 +97,27 @@
   </div>
 </template>
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   data() {
     return {
-      active: 'home'
+      active: 'general'
+    }
+  },
+  mounted() {
+    this.getNews('general')
+  },
+  methods: {
+    //...mapActions(['getNews']),
+    getNews(category) {
+      this.active = category
+      const loading = this.$vs.loading();
+      this.$store.dispatch('getNews', this.active).then(res => {
+        loading.close();
+      }).catch(error => {
+        loading.close();
+      });
     }
   },
 }

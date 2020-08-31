@@ -7,6 +7,8 @@ import Vuesax from 'vuesax'
 import 'vuesax/dist/vuesax.css'
 Vue.use(Vuesax)
 
+Vue.use(require('vue-moment'));
+
 Vue.config.productionTip = false
 
 new Vue({
