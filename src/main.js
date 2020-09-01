@@ -5,6 +5,7 @@ import store from './store'
 
 import Vuesax from 'vuesax'
 import 'vuesax/dist/vuesax.css'
+import './registerServiceWorker'
 Vue.use(Vuesax)
 
 Vue.use(require('vue-moment'));
